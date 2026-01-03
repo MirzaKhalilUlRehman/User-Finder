@@ -10,64 +10,52 @@ let users = [
         about: "Creative front-end developer who loves clean UI design."
     },
     {
-        name: "Usman",
+        name: "Abdullah",
         pic: "https://images.pexels.com/photos/940585/pexels-photo-940585.jpeg",
         about: "Backend developer focused on building scalable systems."
     },
     {
-        name: "Ali",
+        name: "Abdulrehman",
         pic: "https://images.pexels.com/photos/1322543/pexels-photo-1322543.jpeg",
         about: "Full-stack developer with strong debugging skills."
     },
     {
-        name: "Hamza",
+        name: "Shazaib",
         pic: "https://images.pexels.com/photos/325688/pexels-photo-325688.jpeg",
         about: "Responsive web specialist and mobile-first designer."
     },
     {
-        name: "Bilal",
+        name: "Fizan",
         pic: "https://images.pexels.com/photos/1172207/pexels-photo-1172207.jpeg",
         about: "JavaScript enthusiast who enjoys building interactive apps."
     }
 ];
 
-// Get the cards container
 let cardsContainer = document.querySelector(".cards");
-
 function displayUsers(userList) {
-    // Clear the container first
     cardsContainer.innerHTML = "";
-
-    // Display users
     userList.forEach(user => {
         let Card = document.createElement("div");
         Card.classList.add("card");
-
         let BackImg = document.createElement("div");
         BackImg.classList.add("back-img");
         BackImg.style.backgroundImage = `url(${user.pic})`;
-
         let CardContent = document.createElement("div");
         CardContent.classList.add("card-content");
-
         let UserName = document.createElement("h2");
         UserName.classList.add("name");
         UserName.textContent = user.name;
-
         let About = document.createElement("p");
         About.classList.add("about");
         About.textContent = user.about;
-
         Card.appendChild(BackImg);
         Card.appendChild(CardContent);
         CardContent.appendChild(UserName);
         CardContent.appendChild(About);
-
         cardsContainer.appendChild(Card);
     });
 }
 
-// Function to show "No User Found" message
 function showNoUserMessage() {
     cardsContainer.innerHTML = "";
     let messageDiv = document.createElement("div");
@@ -76,27 +64,22 @@ function showNoUserMessage() {
     cardsContainer.appendChild(messageDiv);
 }
 
-// Initial display of all users
 displayUsers(users);
 
-// Get the input element - use #search (ID) not .input (class)
 let input = document.querySelector("#search");
 
 input.addEventListener("input", () => {
     let searchTerm = input.value.toLowerCase().trim();
 
-    // If search is empty, show all users
     if (searchTerm === "") {
         displayUsers(users);
         return;
     }
 
-    // Filter users
     let filteredUsers = users.filter(user => {
         return user.name.toLowerCase().startsWith(searchTerm);
     });
 
-    // Check if we have results
     if (filteredUsers.length === 0) {
         showNoUserMessage();
     } else {
