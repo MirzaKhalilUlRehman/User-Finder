@@ -34,40 +34,57 @@ let users = [
 // Get the cards container, not the main container
 let cardsContainer = document.querySelector(".cards");
 
-function displayUsers(userList){
-    userList.forEach(user => {  // Changed parameter name from 'users' to 'user'
+function displayUsers(userList) {
+    userList.forEach(user => {
         // Create card container
         let Card = document.createElement("div");
-        Card.classList.add("card");  // Changed from "cards" to "card"
-        
+        Card.classList.add("card");
+
         // Create image background
         let BackImg = document.createElement("div");
         BackImg.classList.add("back-img");
         BackImg.style.backgroundImage = `url(${user.pic})`;
-        
+
         // Create content container
         let CardContent = document.createElement("div");
         CardContent.classList.add("card-content");
-        
+
         // Create name element
         let UserName = document.createElement("h2");
         UserName.classList.add("name");
         UserName.textContent = user.name;
-        
+
         // Create about element
         let About = document.createElement("p");
         About.classList.add("about");
         About.textContent = user.about;
-        
+
         // Assemble the card
         Card.appendChild(BackImg);
         Card.appendChild(CardContent);
         CardContent.appendChild(UserName);
         CardContent.appendChild(About);
-        
+
         // Append card to the cards container
         cardsContainer.appendChild(Card);
     });
 }
 
+// Initial display of all users
 displayUsers(users);
+
+// Get the input element (use #search, not .input)
+let input = document.querySelector("#search");
+
+input.addEventListener("input", () => {
+    let filteredUsers = users.filter(user => {
+        // Case-insensitive search that checks if name starts with input
+        return user.name.toLowerCase().startsWith(input.value.toLowerCase());
+    });
+    
+    // Clear the container before displaying filtered results
+    cardsContainer.innerHTML = "";
+    
+    // Display filtered users
+    displayUsers(filteredUsers);
+});
