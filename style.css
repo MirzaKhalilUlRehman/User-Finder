@@ -12,7 +12,9 @@ body{
     justify-content:center;
     align-items:center;
     color:#fff;
+    padding:20px;
 }
+
 .no-user-message {
     grid-column: 1 / -1;
     text-align: center;
@@ -24,35 +26,48 @@ body{
     font-weight: 500;
     font-size: 18px;
 }
+
 .container{
-    width:420px;
+    width:100%;
+    max-width:420px;
     padding:20px;
     background:#151922;
     border-radius:14px;
     box-shadow:0 0 20px rgba(0,0,0,0.7);
+    transition: transform 0.3s ease;
 }
 
 h1{
     text-align:center;
-    margin-bottom:15px;
+    margin-bottom:20px;
     font-weight:500;
+    font-size:1.5rem;
+    color:#e0e0ff;
 }
 
 #search{
     width:100%;
-    padding:8px;
-    border-radius:6px;
-    border:none;
+    padding:12px 16px;
+    border-radius:8px;
+    border:1px solid #2a2f3a;
     outline:none;
-    background:#0f1115;
+    background:#1a1f2c;
     color:#fff;
-    margin-bottom:15px;
+    margin-bottom:20px;
+    font-size:14px;
+    transition: all 0.3s ease;
+}
+
+#search:focus{
+    border-color:#4a6cf7;
+    box-shadow:0 0 0 2px rgba(74, 108, 247, 0.2);
+    background:#1d2230;
 }
 
 .cards{
     display:grid;
     grid-template-columns:repeat(auto-fill, minmax(110px,1fr));
-    gap:12px;
+    gap:16px;
 }
 
 .card{
@@ -62,6 +77,18 @@ h1{
     position:relative;
     overflow:hidden;
     box-shadow:0 6px 15px rgba(0,0,0,0.6);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+/* Interactive hover effects */
+.card:hover{
+    transform: translateY(-8px) scale(1.03);
+    box-shadow:0 12px 25px rgba(0,0,0,0.8);
+}
+
+.card:active{
+    transform: translateY(-4px) scale(1.01);
 }
 
 /* image holder */
@@ -71,21 +98,166 @@ h1{
     background-size:cover;
     background-position:center;
     filter:brightness(0.7);
+    transition: all 0.5s ease;
+}
+
+.card:hover .back-img{
+    filter:brightness(0.9);
+    transform: scale(1.1);
 }
 
 .card-content{
     position:absolute;
     bottom:0;
     width:100%;
-    padding:6px;
-    background:linear-gradient(transparent, rgba(0,0,0,0.9));
+    padding:10px 8px;
+    background:linear-gradient(transparent, rgba(0,0,0,0.95));
+    transform: translateY(0);
+    transition: all 0.3s ease;
+}
+
+.card:hover .card-content{
+    padding-bottom:14px;
+    background:linear-gradient(transparent, rgba(0,0,0,0.98));
 }
 
 .name{
     font-size:13px;
+    font-weight:600;
+    margin-bottom:2px;
+    transition: all 0.3s ease;
+}
+
+.card:hover .name{
+    transform: translateX(4px);
 }
 
 .about{
     font-size:11px;
     color:#ccc;
+    opacity:0.9;
+    transition: all 0.3s ease;
+}
+
+.card:hover .about{
+    opacity:1;
+    transform: translateX(4px);
+}
+
+/* Add a subtle shine effect on hover */
+.card::after{
+    content:'';
+    position:absolute;
+    top:-50%;
+    left:-50%;
+    width:200%;
+    height:200%;
+    background:linear-gradient(
+        to bottom right,
+        rgba(255,255,255,0.1) 0%,
+        rgba(255,255,255,0) 50%
+    );
+    transform:rotate(30deg);
+    transition: all 0.6s ease;
+    opacity:0;
+}
+
+.card:hover::after{
+    opacity:1;
+    transform:rotate(30deg) translateY(20%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px){
+    .container{
+        padding:16px;
+        border-radius:12px;
+    }
+    
+    h1{
+        font-size:1.3rem;
+        margin-bottom:16px;
+    }
+    
+    #search{
+        padding:10px 14px;
+        margin-bottom:16px;
+    }
+    
+    .cards{
+        gap:12px;
+    }
+    
+    .card{
+        height:130px;
+    }
+}
+
+@media (max-width: 380px){
+    .cards{
+        grid-template-columns:repeat(2, 1fr);
+    }
+    
+    .card{
+        height:150px;
+    }
+    
+    .container{
+        padding:12px;
+    }
+}
+
+@media (min-width: 768px){
+    .container{
+        max-width:500px;
+        padding:30px;
+    }
+    
+    .cards{
+        grid-template-columns:repeat(auto-fill, minmax(120px,1fr));
+        gap:20px;
+    }
+    
+    .card{
+        height:160px;
+    }
+    
+    h1{
+        font-size:1.8rem;
+        margin-bottom:25px;
+    }
+    
+    #search{
+        padding:14px 18px;
+        font-size:15px;
+        margin-bottom:25px;
+    }
+}
+
+/* Loading state animation */
+.card.loading .back-img{
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse{
+    0%, 100%{ opacity: 0.6; }
+    50%{ opacity: 0.8; }
+}
+
+/* Selection state */
+.card.selected{
+    outline:2px solid #4a6cf7;
+    outline-offset:2px;
+}
+
+/* Accessibility focus styles */
+.card:focus-visible{
+    outline:2px solid #4a6cf7;
+    outline-offset:4px;
+    transform: scale(1.05);
+}
+
+/* Smooth scroll for the container */
+.container{
+    scroll-behavior: smooth;
 }
