@@ -13,7 +13,17 @@ body{
     align-items:center;
     color:#fff;
 }
+.no-user-message {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: #aaa;
+}
 
+.no-user-message h2 {
+    font-weight: 500;
+    font-size: 18px;
+}
 .container{
     width:420px;
     padding:20px;
