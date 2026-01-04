@@ -99,7 +99,8 @@ h1{
     width:100%;
     height:100%;
     background-size:cover;
-    background-position:center;
+    /* For person/profile images, 30% from top usually shows faces well */
+    background-position: center 30%;
     filter:brightness(0.7);
     transition: all 0.5s ease;
 }
