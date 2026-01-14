@@ -67,9 +67,6 @@ function displayUsers(userList) {
         });
 
     });
-    del.addEventListener("click", (e) => {
-        e.stopPropagation();
-    });
 };
 
 function showNoUserMessage() {
