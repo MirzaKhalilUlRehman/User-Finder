@@ -53,8 +53,24 @@ function displayUsers(userList) {
         CardContent.appendChild(UserName);
         CardContent.appendChild(About);
         cardsContainer.appendChild(Card);
+        let del = document.createElement("div");
+        del.classList.add("delete-btn");
+        del.innerHTML = `<i class="fa-solid fa-trash"></i>`;
+        Card.appendChild(del);
+
+        Card.addEventListener("mouseenter", () => {
+            del.style.opacity = "1";
+        });
+
+        Card.addEventListener("mouseleave", () => {
+            del.style.opacity = "0";
+        });
+
     });
-}
+    del.addEventListener("click", (e) => {
+        e.stopPropagation();
+    });
+};
 
 function showNoUserMessage() {
     cardsContainer.innerHTML = "";
