@@ -32,31 +32,44 @@ let users = [
 ];
 
 let cardsContainer = document.querySelector(".cards");
+let del_btn = document.querySelectorAll(".delete-btn");
 function displayUsers(userList) {
     cardsContainer.innerHTML = "";
-    userList.forEach(user => {
+
+    userList.forEach((user, index) => {
+        user.uid = index;
+
         let Card = document.createElement("div");
         Card.classList.add("card");
+        Card.dataset.userId = index;
+
         let BackImg = document.createElement("div");
         BackImg.classList.add("back-img");
         BackImg.style.backgroundImage = `url(${user.pic})`;
+
         let CardContent = document.createElement("div");
         CardContent.classList.add("card-content");
+
         let UserName = document.createElement("h2");
         UserName.classList.add("name");
         UserName.textContent = user.name;
+
         let About = document.createElement("p");
         About.classList.add("about");
         About.textContent = user.about;
-        Card.appendChild(BackImg);
-        Card.appendChild(CardContent);
-        CardContent.appendChild(UserName);
-        CardContent.appendChild(About);
-        cardsContainer.appendChild(Card);
+
         let del = document.createElement("div");
         del.classList.add("delete-btn");
         del.innerHTML = `<i class="fa-solid fa-trash"></i>`;
+        del.dataset.userId = index;
+
+        Card.appendChild(BackImg);
+        CardContent.appendChild(UserName);
+        CardContent.appendChild(About);
+        Card.appendChild(CardContent);
         Card.appendChild(del);
+
+        cardsContainer.appendChild(Card);
 
         Card.addEventListener("mouseenter", () => {
             del.style.opacity = "1";
@@ -65,9 +78,8 @@ function displayUsers(userList) {
         Card.addEventListener("mouseleave", () => {
             del.style.opacity = "0";
         });
-
     });
-};
+}
 
 function showNoUserMessage() {
     cardsContainer.innerHTML = "";
@@ -98,4 +110,7 @@ input.addEventListener("input", () => {
     } else {
         displayUsers(filteredUsers);
     }
+});
+del_btn.addEventListener("click", () => {
+    document.querySelector(".confrmation-card").classList.toggle("display");
 });
