@@ -111,6 +111,3 @@ input.addEventListener("input", () => {
         displayUsers(filteredUsers);
     }
 });
-del_btn.addEventListener("click", () => {
-    document.querySelector(".confrmation-card").classList.toggle("display");
-});
